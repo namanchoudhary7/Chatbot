@@ -1,9 +1,12 @@
 from database import DatabaseManager
 from chatbot import ChatbotSession
+from chatbot import Agent
 
 def main():
     db = DatabaseManager()
     db.init_db()
+    agent = Agent().init_agent()
+
     try:
         while True:
             auth_choice = db.auth_menu()
@@ -13,7 +16,7 @@ def main():
                 while db.current_user:
                     app_choice = db.main_menu()
                     if app_choice == 'chat':
-                        bot = ChatbotSession()
+                        bot = ChatbotSession(thread_id=db.current_user, agent=agent)
                         bot.run()
                     elif app_choice == 'logout':
                         break
