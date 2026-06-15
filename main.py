@@ -5,7 +5,7 @@ from chatbot import Agent
 def main():
     db = DatabaseManager()
     db.init_db()
-    agent = Agent().init_agent()
+    agent = Agent()
 
     try:
         while True:
