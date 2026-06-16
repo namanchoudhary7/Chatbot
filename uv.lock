@@ -272,6 +272,7 @@ dependencies = [
     { name = "langchain-google-genai" },
     { name = "langgraph" },
     { name = "psycopg2-binary" },
+    { name = "pydantic" },
     { name = "python-dotenv" },
 ]
 
@@ -282,6 +283,7 @@ requires-dist = [
     { name = "langchain-google-genai", specifier = ">=4.2.4" },
     { name = "langgraph", specifier = ">=1.2.4" },
     { name = "psycopg2-binary", specifier = ">=2.9.12" },
+    { name = "pydantic", specifier = ">=2.13.4" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
 ]
 

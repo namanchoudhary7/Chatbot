@@ -4,3 +4,4 @@ python-dotenv
 bcrypt
 psycopg2-binary
 langgraph
+pydantic
