@@ -96,10 +96,10 @@ class DatabaseManager:
                 print(f'\nWelcome {username}! Your account has been created. Please log in.')
                 break
     
-    def get_user_history(self, username):
+    def get_user_history(self):
         with self.conn:
             with self.conn.cursor() as cur:
-                cur.execute("SELECT userid FROM user_info WHERE username = %s;", (username,))
+                cur.execute("SELECT userid FROM user_info WHERE username = %s;", (self.current_user,))
                 userid = cur.fetchone()
                 if not userid:
                     return None
@@ -108,11 +108,11 @@ class DatabaseManager:
                 past_history = cur.fetchone()
                 return past_history[0] if past_history else None
 
-    def store_user_history(self, username, curr_history):
+    def store_user_history(self, curr_history):
         history_json = json.dumps(curr_history)
         with self.conn:
             with self.conn.cursor() as cur:
-                cur.execute("SELECT userid FROM user_info WHERE username = %s;", (username,))
+                cur.execute("SELECT userid FROM user_info WHERE username = %s;", (self.current_user,))
                 result = cur.fetchone()
                 if not result:
                     print("User not found.")

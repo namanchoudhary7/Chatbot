@@ -1,6 +1,5 @@
 from database import DatabaseManager
-from chatbot import ChatbotSession
-from chatbot import Agent
+from chatbot import ChatbotSession, Agent
 
 def main():
     db = DatabaseManager()

@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import textwrap
-import traceback
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
@@ -33,22 +32,22 @@ history_schema_dict = {
 class Agent:
     def __init__(self):
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-2.5-flash",
-            temperature = 0.8,
+            model=os.getenv('MODEL_NAME'),
+            temperature = os.getenv('MODEL_TEMPERATURE'),
             google_api_key = os.getenv('GOOGLE_API_KEY'),
         )
 
         self.checkpointer=InMemorySaver()
 
         self.summarization_middleware = SummarizationMiddleware(
-            model=self.llm.bind(max_output_tokens = 100),
+            model=self.llm.bind(max_output_tokens = os.getenv('MAX_OUTPUT_TOKENS')),
             trigger=('messages', 5),
             keep=('messages', 2),
         )
 
     def init_agent(self, system_prompt: SystemMessage | str):
         return create_agent(
-            model=self.llm.bind(max_output_tokens = 100),
+            model=self.llm.bind(max_output_tokens = os.getenv('MAX_OUTPUT_TOKENS')),
             system_prompt=system_prompt,
             checkpointer=self.checkpointer,
             middleware=[self.summarization_middleware],
